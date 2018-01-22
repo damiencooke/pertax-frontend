@@ -19,6 +19,24 @@ GET    /personal-account/dismiss-ur-banner                                   @co
 
 GET    /personal-account/self-assessment                                     @controllers.ApplicationController.handleSelfAssessment
 GET    /personal-account/sa-continue                                         @controllers.ApplicationController.ivExemptLandingPage(continueUrl: Option[StrictContinueUrl])
+GET    /personal-account/self-assessment/sa-filed-online                     @controllers.AmbiguousJourneyController.filedReturnOnlineChoice
+POST   /personal-account/self-assessment/sa-filed-online                     @controllers.AmbiguousJourneyController.processFileReturnOnlineChoice
+GET    /personal-account/self-assessment/sa-filed-post                       @controllers.AmbiguousJourneyController.filedReturnByPostChoice
+POST   /personal-account/self-assessment/sa-filed-post                       @controllers.AmbiguousJourneyController.processFiledReturnByPostChoice
+GET    /personal-account/self-assessment/de-enrolled-sa                      @controllers.AmbiguousJourneyController.deEnrolledFromSaChoice
+POST   /personal-account/self-assessment/de-enrolled-sa                      @controllers.AmbiguousJourneyController.processDeEnroleedFromSaChoice
+GET    /personal-account/self-assessment/received-utr-letter                 @controllers.AmbiguousJourneyController.receivedUtrLetterChoice
+POST   /personal-account/self-assessment/received-utr-letter                 @controllers.AmbiguousJourneyController.processReceivedUtrLetterChoice
+GET    /personal-account/self-assessment/used-utr-to-enrol                   @controllers.AmbiguousJourneyController.usedUtrToEnrolChoice
+POST   /personal-account/self-assessment/used-utr-to-enrol                   @controllers.AmbiguousJourneyController.processUsedUtrToEnrolChoice
+GET    /personal-account/self-assessment/need-to-enrol                       @controllers.AmbiguousJourneyController.youNeedToEnrol
+GET    /personal-account/self-assessment/need-to-enrol-again                 @controllers.AmbiguousJourneyController.youNeedToEnrolAgain
+GET    /personal-account/self-assessment/need-to-use-created-credentials     @controllers.AmbiguousJourneyController.youNeedToUseCreatedCreds
+GET    /personal-account/self-assessment/deadline                            @controllers.AmbiguousJourneyController.deadlineisDate
+GET    /personal-account/self-assessment/letter-in-post                      @controllers.AmbiguousJourneyController.yourLetterMayStillBeInPost
+GET    /personal-account/self-assessment/pin-expired                         @controllers.AmbiguousJourneyController.yourPinHasExpired
+GET    /personal-account/self-assessment/used-utr-to-register                @controllers.AmbiguousJourneyController.usedUtrToRegisterChoice
+POST   /personal-account/self-assessment/used-utr-to-register                @controllers.AmbiguousJourneyController.processUsedUtrToRegisterChoice
 
 GET    /personal-account/lang/enGb                                           @controllers.LanguageController.enGb(redirectUrl: StrictContinueUrl)
 GET    /personal-account/lang/cyGb                                           @controllers.LanguageController.cyGb(redirectUrl: StrictContinueUrl)

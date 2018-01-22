@@ -23,7 +23,7 @@ import controllers.bindable.Origin
 import controllers.routes
 import play.api.Configuration
 import play.api.i18n.Langs
-import uk.gov.hmrc.play.config.{RunMode, ServicesConfig}
+import uk.gov.hmrc.play.config.ServicesConfig
 
 @Singleton
 class ConfigDecorator @Inject() (configuration: Configuration, langs: Langs) extends ServicesConfig {
@@ -63,6 +63,7 @@ class ConfigDecorator @Inject() (configuration: Configuration, langs: Langs) ext
   lazy val dfsFrontendHost                              = decorateUrlForLocalDev(s"dfs-frontend.host").getOrElse("")
   lazy val plaBackEndHost                               = decorateUrlForLocalDev(s"pensions-lifetime-allowance.host").getOrElse("")
   lazy val governmentGatewayLostCredentialsFrontendHost = decorateUrlForLocalDev(s"government-gateway-lost-credentials-frontend.host").getOrElse("")
+  lazy val governmentGatewayRegistrationFrontendHost    = decorateUrlForLocalDev(s"government-gateway-registration-frontend.host").getOrElse("")
 
 
   lazy val portalBaseUrl = configuration.getString("external-url.portal.host").getOrElse("")
@@ -79,6 +80,8 @@ class ConfigDecorator @Inject() (configuration: Configuration, langs: Langs) ext
   lazy val ssoToRegisterForSaEnrolment = ssoifyUrl(toPortalUrl("/home/services/enroll"))
   lazy val ssoToRegistration = ssoifyUrl(toPortalUrl("/registration"))
   def ssoToSaAccountSummaryUrl(saUtr: String, taxYear: String) = ssoifyUrl(toPortalUrl(s"/self-assessment/ind/$saUtr/taxreturn/$taxYear/options"))
+  lazy val ssoForgotSaUserIdUrl = "https://online.hmrc.gov.uk/user/credentials/userid?affinityGroup=individual&service=self-assessment"
+  lazy val ssoForgotPasswordUrl = "https://online.hmrc.gov.uk/user/credentials/password?affinityGroup=individual&service=self-assessment"
 
   def betaFeedbackUnauthenticatedUrl(aDeskproToken: String) = s"$contactHost/contact/beta-feedback-unauthenticated?service=$aDeskproToken"
   lazy val analyticsToken = configuration.getString(s"google-analytics.token")
@@ -102,6 +105,9 @@ class ConfigDecorator @Inject() (configuration: Configuration, langs: Langs) ext
   lazy val onlineServicesHelpdeskUrl = "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk"
   lazy val contactHrmcUrl = "https://www.gov.uk/contact-hmrc"
   lazy val selfAssessmentContactUrl = "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/self-assessment"
+  def registerForSelfAssessmentUrl(continueUrl: String) = {
+    s"$governmentGatewayRegistrationFrontendHost/government-gateway-registration-frontend/are-you-trying-to-file-for-sa?continue=${enc(continueUrl)}&origin=${enc(defaultOrigin.toString)}"
+  }
   lazy val taxReturnByPostUrl = "https://www.gov.uk/government/publications/self-assessment-tax-return-sa100"
   lazy val hmrcProblemsSigningIn = "https://www.gov.uk/log-in-register-hmrc-online-services/problems-signing-in"
   lazy val incomeTaxGeneralQueriesUrl = "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees"
